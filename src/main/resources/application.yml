@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+  application:
+    name: blinklink-service-learning
+  datasource:
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/blinklink-learning
+    hikari:
+      maximum-pool-size: 3
+    driver-class-name: org.postgresql.Driver
+server:
+  port: 8080
+
