@@ -26,11 +26,11 @@ public class DefaultCartService implements CartService{
     }
 
     @Override
-    public Cart addProductToCart(UUID cartId, UUID productId) {
+    public Cart addProductToCart(UUID cartId, UUID productId, Integer quantity) {
         Cart cart = cartRepository.findById(cartId)
                 .orElse(null);
         assert cart != null;
-        cart = cart.linkProduct(productId,productRepository);
+        cart = cart.linkProduct(productId,quantity,productRepository);
         return cartRepository.save(cart);
     }
 

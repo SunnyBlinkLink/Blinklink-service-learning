@@ -6,7 +6,7 @@ public interface CartService {
 
     Cart createCartAndAddProduct(UUID userId);
 
-    Cart addProductToCart(UUID cartId, UUID productId);
+    Cart addProductToCart(UUID cartId, UUID productId, Integer quantity);
 
     Cart find(UUID Id);
 }

@@ -27,7 +27,7 @@ public class Cart extends AbstractAggregateRoot<Cart> {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "cart_products", indexes = {@Index(columnList = "products")})
-    private Set<UUID> products = new HashSet<>();
+    private Map<UUID,Integer> products = new HashMap<>();
     private UUID userId;
 
     @Convert(converter= MonetaryAmountConverter.class)
@@ -40,17 +40,20 @@ public class Cart extends AbstractAggregateRoot<Cart> {
         this.userId = user.getId();
     }
 
-    Cart linkProduct(UUID productId, ProductRepository productRepository) {
-        products.add(productId);
+    Cart linkProduct(UUID productId,Integer quantity,ProductRepository productRepository) {
+        products.put(productId,quantity);
         calculateTotal(productRepository);
         return this;
     }
 
     private void calculateTotal(ProductRepository productRepository){
         MonetaryAmount Total = Money.of(BigDecimal.ZERO, "USD");
-        for(UUID productId:products) {
+        for(Map.Entry<UUID,Integer> entry:products.entrySet()) {
+            UUID productId=entry.getKey();
+            Integer quantity=entry.getValue();
             Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
-            Total = Total.add(product.getPrice());
+            Total = Total.add(product.getPrice().multiply(quantity));
+            product.setQuantity(product.getQuantity()-quantity);
         }
         this.totalAmount=Total;
         System.out.println(totalAmount);

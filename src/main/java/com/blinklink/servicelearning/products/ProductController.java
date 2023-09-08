@@ -19,7 +19,7 @@ public class ProductController{
 
     @PostMapping(value="/products")
     public ResponseEntity<?> create(@RequestBody CreateResource createResource){
-        var product=new Product(createResource.getName(),createResource.getCategory(),createResource.getPrice());
+        var product=new Product(createResource.getName(),createResource.getCategory(),createResource.getPrice(),createResource.getQuantity());
         product=productService.create(product);
         return ResponseEntity.ok(product);
     }
@@ -29,12 +29,14 @@ public class ProductController{
         private final String name;
         private final String category;
         private final MonetaryAmount price;
+        private final Integer quantity;
 
         @JsonCreator
-        public CreateResource(String name,String category, BigDecimal price){
+        public CreateResource(String name,String category, BigDecimal price, Integer quantity){
             this.name=name;
             this.category=category;
             this.price= Money.of(price, "USD");
+            this.quantity=quantity;
         }
     }
 

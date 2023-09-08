@@ -29,15 +29,18 @@ public class CartController {
     private static class CreateResource{
         private final UUID productId;
 
+        private final Integer quantity;
+
         @JsonCreator
-        public CreateResource(UUID productId){
+        public CreateResource(UUID productId,Integer quantity){
             this.productId=productId;
+            this.quantity=quantity;
         }
     }
 
     @PostMapping(value="/{cartId}/add-product")
     public ResponseEntity<?> addToCart(@PathVariable("cartId") UUID cartId,@RequestBody CreateResource createResource){
-        Cart cart = cartService.addProductToCart(cartId, createResource.getProductId());
+        Cart cart = cartService.addProductToCart(cartId, createResource.getProductId(),createResource.getQuantity());
         return ResponseEntity.ok(cart);
     }
 
