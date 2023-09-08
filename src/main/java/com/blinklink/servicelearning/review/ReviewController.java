@@ -1,14 +1,12 @@
 package com.blinklink.servicelearning.review;
 
-import com.blinklink.servicelearning.products.Product;
-import com.blinklink.servicelearning.products.ProductRepository;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor

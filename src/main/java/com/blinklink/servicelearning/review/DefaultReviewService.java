@@ -2,7 +2,6 @@ package com.blinklink.servicelearning.review;
 
 import com.blinklink.servicelearning.products.Product;
 import com.blinklink.servicelearning.products.ProductRepository;
-import com.blinklink.servicelearning.products.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
